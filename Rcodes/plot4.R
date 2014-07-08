@@ -9,7 +9,7 @@
 ### Importing the data ###
 # The dataset of the Individual household electric power consumption is rather
 # large. This means that it requires a considerable amount of your computers 
-# memory. Here I suggest two ways iomporting the data depending on your machine
+# memory. Here I suggest two ways importing the data depending on your machine
 
 # First way to import the data
 # Save time by initializing only 100 lines of the data and determine the class
@@ -44,20 +44,52 @@ submyDat<-read.csv.sql(file="household_power_consumption.csv",header=T,sep=";",
                   where Date ='1/2/2007' or Date ='2/2/2007'")
 save(submyDat,file="subData.RData")
 
-########## Plot2 #######################################################
-# If you have already loaded the date skip this step
+########## Plot4 #######################################################
+# If you have already loaded the dataset skip this step
 load("~/ExData_Plotting1/RData/subData.RData")
 
 # Create a new format of Datetime
 days<-weekdays(as.Date(submyDat$Datenew))
 submyDat$DateTime <- as.POSIXct( strptime(
-        paste(submyDat$Date, submyDat$Time), "%d/%m/%Y %H:%M:%S"))       
+        paste(submyDat$Date, submyDat$Time), "%d/%m/%Y %H:%M:%S"))   
 
-png(file = "~/ExData_Plotting1/figure/plot2.png",height=480,width=480, 
+png(file = "~/ExData_Plotting1/figure/plot4.png",height=480,width=480, 
     bg = "transparent")
-plot(submyDat$DateTime,submyDat$Global_active_power,type="l",lty="solid", 
-     xaxt="n",ylab='Global active power (kilowatts)',xlab='')
-axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
+        par(mfcol=c(2,2))
+
+        #plot1
+        plot(submyDat$DateTime,submyDat$Global_active_power,type="l",lty="solid", 
+     xaxt="n",ylab='Global active power',xlab='')
+        axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
              min(submyDat$DateTime)+2*86400),
-     labels=c("Thu", "Fri", "Sat"))
+                labels=c("Thu", "Fri", "Sat"))
+
+        #plot 2
+        plot(submyDat$DateTime,submyDat$Sub_metering_1,type="l",lty="solid",
+     col="black",xaxt="n",ylab='Energy sub metering',xlab='')
+        lines(submyDat$DateTime,submyDat$Sub_metering_2,type="l",lty="solid",
+      col="red",xaxt="n")
+        lines(submyDat$DateTime,submyDat$Sub_metering_3,type="l",lty="solid",
+      col="blue",xaxt="n")
+        axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
+             min(submyDat$DateTime)+2*86400),
+                labels=c("Thu", "Fri", "Sat"))
+        legend("topright",lty="solid",
+       legend=c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"),
+       col=c("black","red","blue"),bty="n")
+        
+        #plot3
+        plot(submyDat$DateTime,submyDat$Voltage,type="l",lty="solid", 
+     xaxt="n",ylab='Voltage',xlab='datetime')
+        axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
+             min(submyDat$DateTime)+2*86400),
+        labels=c("Thu", "Fri", "Sat"))
+
+        #plot 4
+        plot(submyDat$DateTime,submyDat$Global_reactive_power,type="l",lty="solid", 
+     xaxt="n",ylab='Global_reactive_power',xlab='datetime')
+        axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
+             min(submyDat$DateTime)+2*86400),
+        labels=c("Thu", "Fri", "Sat"))
+
 dev.off()

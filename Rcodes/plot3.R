@@ -44,7 +44,7 @@ submyDat<-read.csv.sql(file="household_power_consumption.csv",header=T,sep=";",
                   where Date ='1/2/2007' or Date ='2/2/2007'")
 save(submyDat,file="subData.RData")
 
-########## Plot2 #######################################################
+########## Plot3 #######################################################
 # If you have already loaded the date skip this step
 load("~/ExData_Plotting1/RData/subData.RData")
 
@@ -53,11 +53,18 @@ days<-weekdays(as.Date(submyDat$Datenew))
 submyDat$DateTime <- as.POSIXct( strptime(
         paste(submyDat$Date, submyDat$Time), "%d/%m/%Y %H:%M:%S"))       
 
-png(file = "~/ExData_Plotting1/figure/plot2.png",height=480,width=480, 
+png(file = "~/ExData_Plotting1/figure/plot3.png",height=480,width=480, 
     bg = "transparent")
-plot(submyDat$DateTime,submyDat$Global_active_power,type="l",lty="solid", 
-     xaxt="n",ylab='Global active power (kilowatts)',xlab='')
+plot(submyDat$DateTime,submyDat$Sub_metering_1,type="l",lty="solid",
+     col="black",xaxt="n",ylab='Energy sub metering',xlab='')
+lines(submyDat$DateTime,submyDat$Sub_metering_2,type="l",lty="solid",
+      col="red",xaxt="n")
+lines(submyDat$DateTime,submyDat$Sub_metering_3,type="l",lty="solid",
+      col="blue",xaxt="n")
 axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
              min(submyDat$DateTime)+2*86400),
      labels=c("Thu", "Fri", "Sat"))
+legend("topright",lty="solid",
+       legend=c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"),
+       col=c("black","red","blue"))
 dev.off()
