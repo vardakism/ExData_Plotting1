@@ -3,17 +3,20 @@
 # over a 2-day period in February, 2007
 
 ########## Data #######################################################
-#his assignment uses data from the UC Irvine Machine Learning Repository, 
+#This assignment uses data from the UC Irvine Machine Learning Repository, 
 # a popular repository for machine learning datasets. 
 
 ### Importing the data ###
 # The dataset of the Individual household electric power consumption is rather
-# large. This means that it requires a considerable amount of your computers 
+# large. This means that it requires a considerable amount of your computer's 
 # memory. Here I suggest two ways iomporting the data depending on your machine
+# Download the data and unzip them from the location given by the README.md file
 
 # First way to import the data
 # Save time by initializing only 100 lines of the data and determine the class
-# of each row
+# of each row. You should unzip anf point the read.table() to the right 
+# directory of the household_power_consumption.txt dataset.
+
 initial<-read.table("household_power_consumption.txt",header=T,
                     na.strings="?",nrows=100,sep=";")
 classes<-sapply(initial, class)
