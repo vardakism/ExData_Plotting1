@@ -10,11 +10,12 @@
 # The dataset of the Individual household electric power consumption is rather
 # large. This means that it requires a considerable amount of your computers 
 # memory. Here I suggest two ways iomporting the data depending on your machine
+# Download the data and unzip them from the location given by the README.md file
 
 # First way to import the data
 # Save time by initializing only 100 lines of the data and determine the class
 # of each row
-initial<-read.table("household_power_consumption.txt",header=T,
+initial<-read.table("~/InternetCourses/specialization/4.Exploratory_Data_Analysis/check/household_power_consumption.txt",header=T,
                     na.strings="?",nrows=100,sep=";")
 classes<-sapply(initial, class)
 
@@ -46,7 +47,7 @@ save(submyDat,file="subData.RData")
 
 ########## Plot1 #######################################################
 # If you have already loaded the date skip this step
-load("subData.RData")
+load("~/ExData_Plotting1/RData/subData.RData")
 
 png(file = "~/ExData_Plotting1/figure/plot1.png",height=480,width=480, bg = "transparent")
 hist(submyDat$Global_active_power,col="red",

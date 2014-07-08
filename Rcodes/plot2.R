@@ -46,14 +46,14 @@ save(submyDat,file="subData.RData")
 
 ########## Plot2 #######################################################
 # If you have already loaded the date skip this step
-load("subData.RData")
+load("~/ExData_Plotting1/RData/subData.RData")
 
 # Create a new format of Datetime
 days<-weekdays(as.Date(submyDat$Datenew))
 submyDat$DateTime <- as.POSIXct( strptime(
         paste(submyDat$Date, submyDat$Time), "%d/%m/%Y %H:%M:%S"))       
 
-png(file = "plot2.png",height=480,width=480, bg = "transparent")
+png(file = "~/ExData_Plotting1/figure/plot2.png",height=480,width=480, bg = "transparent")
 plot(submyDat$DateTime,submyDat$Global_active_power,type="l",lty="solid", 
      xaxt="n",ylab='Global active power (kilowatts)',xlab='')
 axis(1, at=c(min(submyDat$DateTime), min(submyDat$DateTime)+86400,
